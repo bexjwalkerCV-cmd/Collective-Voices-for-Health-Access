@@ -197,6 +197,20 @@ body.editing .mast-nav, body.editing #contactLink { pointer-events: none; opacit
 .cards .card, .cards .card:hover { border: 2px solid var(--mast) !important; }
 /* Light purple backgrounds for item lists */
 .card, .clip, .archive { background: #e6e1f7 !important; }
+/* Branded media tiles */
+.tile { aspect-ratio: 16 / 9; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; margin-bottom: 6px; overflow: hidden; }
+.tile-kind { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; }
+.tile-outlet { font-family: var(--display); font-weight: 800; font-size: 1.45rem; line-height: 1.05; letter-spacing: -0.01em; }
+.tile-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
+.tile-wave { display: flex; align-items: center; gap: 2px; height: 22px; }
+.tile-wave i { width: 3px; border-radius: 2px; background: currentColor; opacity: 0.45; }
+.tile-wave i.hi { opacity: 1; }
+.tile-cv { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.04em; opacity: 0.85; white-space: nowrap; }
+.tile-v0 { background: var(--mast); color: #ffffff; }
+.tile-v0 .tile-wave i.hi, .tile-v0 .tile-kind { color: var(--mint); }
+.tile-v1 { background: #2a2163; color: var(--mint); }
+.tile-v1 .tile-outlet { color: #ffffff; }
+.tile-v2 { background: var(--mint); color: var(--brand); }
 .card .cover { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border-radius: 8px; border: 1px solid var(--line); background: #ffffff; display: block; margin-bottom: 4px; }
 .card .icon { background: #ffffff; }
 </style>
@@ -734,7 +748,11 @@ function renderTimeline() {
 function renderMedia() {
   const L = state.media;
   $("clips").innerHTML = addBtn("media") + L.map((c, i) => {
-    const inner = `<span class="src">${esc(c.src)}</span><h3>${esc(c.title)}${safeUrl(c.url) ? " ↗" : ""}</h3><p>${esc(c.text)}</p>`;
+    const parts = String(c.src || "").split("·").map(x => x.trim()).filter(Boolean);
+    const outlet = parts[0] || "In the media", kind = parts.slice(1).join(" · ") || "Coverage";
+    const bars = [5,9,14,8,18,11,22,13,7,16,10,19,12,6,15,9,4].map((h, k) => `<i style="height:${h}px"${k % 4 === 1 ? ' class="hi"' : ""}></i>`).join("");
+    const tile = `<div class="tile tile-v${i % 3}" aria-hidden="true"><span class="tile-kind">${esc(kind)}</span><span class="tile-outlet">${esc(outlet)}</span><span class="tile-foot"><span class="tile-wave">${bars}</span><span class="tile-cv">Collective Voices</span></span></div>`;
+    const inner = `${tile}<span class="src">${esc(c.src)}</span><h3>${esc(c.title)}${safeUrl(c.url) ? " ↗" : ""}</h3><p>${esc(c.text)}</p>`;
     const card = safeUrl(c.url) && !editing
       ? `<a class="clip" href="${esc(c.url)}" target="_blank" rel="noopener">${inner}</a>`
       : `<div class="clip">${inner}${safeUrl(c.url) ? "" : soon}</div>`;
