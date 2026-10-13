@@ -197,6 +197,7 @@ body.editing .mast-nav, body.editing #contactLink { pointer-events: none; opacit
 .cards .card, .cards .card:hover { border: 2px solid var(--mast) !important; }
 /* Light purple backgrounds for item lists */
 .card, .clip, .archive { background: #e6e1f7 !important; }
+.card .cover { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border-radius: 8px; border: 1px solid var(--line); background: #ffffff; display: block; margin-bottom: 4px; }
 .card .icon { background: #ffffff; }
 </style>
 <div id="cv-root">
@@ -339,7 +340,8 @@ body.editing .mast-nav, body.editing #contactLink { pointer-events: none; opacit
    "icon": "book",
    "text": "Plain-language booklet on access to health care in South Africa, launched December 2025 with the civil society consensus statement.",
    "cta": "Open booklet",
-   "url": "https://drive.google.com/file/d/15Any4hFUVPU9e9cxqpUNOZGfUPfOCQGP/view?usp=drive_link"
+   "url": "https://drive.google.com/file/d/15Any4hFUVPU9e9cxqpUNOZGfUPfOCQGP/view?usp=drive_link",
+   "image": "images/booklet.jpg"
   },
   {
    "kind": "Fact sheet",
@@ -347,7 +349,8 @@ body.editing .mast-nav, body.editing #contactLink { pointer-events: none; opacit
    "icon": "doc",
    "text": "Key facts and quick reference on migration, the health system and the right to health care.",
    "cta": "View fact sheet",
-   "url": "https://drive.google.com/file/d/1PXJx2Xo5QdnpHZv4ZAyQCMTUa0bCe1Iz/view?usp=drive_link"
+   "url": "https://drive.google.com/file/d/1PXJx2Xo5QdnpHZv4ZAyQCMTUa0bCe1Iz/view?usp=drive_link",
+   "image": "images/fast-facts.jpg"
   },
   {
    "kind": "Research report",
@@ -355,7 +358,8 @@ body.editing .mast-nav, body.editing #contactLink { pointer-events: none; opacit
    "icon": "chart",
    "text": "Commissioned research on civil society responses to health xenophobia in the South African public health system, 2000–2022.",
    "cta": "Read report",
-   "url": "https://drive.google.com/file/d/1Q8Gliesd_XOJzL5kB2ETmbHBGjUd4O4d/view?usp=drive_link"
+   "url": "https://drive.google.com/file/d/1Q8Gliesd_XOJzL5kB2ETmbHBGjUd4O4d/view?usp=drive_link",
+   "image": "images/research-report.jpg"
   },
   {
    "kind": "For schools",
@@ -363,7 +367,8 @@ body.editing .mast-nav, body.editing #contactLink { pointer-events: none; opacit
    "icon": "cap",
    "text": "Educational guide on migration myths and the right to health, for learners, teachers and health rights advocates.",
    "cta": "View guide",
-   "url": "https://drive.google.com/file/d/1VAJ9du3bbM7nDcCZqVE2zWr8Yym-c3n0/view?usp=drive_link"
+   "url": "https://drive.google.com/file/d/1VAJ9du3bbM7nDcCZqVE2zWr8Yym-c3n0/view?usp=drive_link",
+   "image": "images/classroom-guide.jpg"
   },
   {
    "kind": "Synthesis",
@@ -670,7 +675,7 @@ function renderResources() {
   const L = state.resources;
   $("cards").innerHTML = L.map((r, i) => wrapEd(`
     <article class="card">
-      <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[r.icon] || ICONS.doc}</svg></div>
+      ${r.image ? `<img class="cover" src="${esc(r.image)}" alt="Cover of ${esc(r.title)}" loading="lazy">` : `<div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[r.icon] || ICONS.doc}</svg></div>`}
       <span class="kind">${esc(r.kind)}</span>
       <h3>${esc(r.title)}</h3>
       <p>${esc(r.text)}</p>
