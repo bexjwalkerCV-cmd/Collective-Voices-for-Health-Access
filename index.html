@@ -1,0 +1,917 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Collective Voices for Health Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<style id="cv-css">
+/* Single light theme by design: the coalition wanted a bright, public-facing look. */
+/* Layout: civic resource hub. Indigo masthead with a voice waveform, then a card grid of core resources, archive index, chronology, media, contact. */
+:root {
+  color-scheme: light;
+  --mast: #4b3fa0;
+  --mint: #9ff0c4;
+  --bg: #f4f3fa;
+  --surface: #ffffff;
+  --ink: #1d1b33;
+  --muted: #5c5a78;
+  --line: #dddcea;
+  --brand: #3b2f86;
+  --brand-ink: #ffffff;
+  --brand-soft: #ecebf8;
+  --green: #1f9d5c;
+  --green-soft: #e3f4ea;
+  --pending: #8a6a14;
+  --pending-soft: #faf2dc;
+  --display: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.1rem); font-weight: 700; letter-spacing: -0.01em; }
+.eyebrow { font-family: var(--mono); font-weight: 700; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); }
+section { padding-block: 56px 8px; }
+.section-head { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; max-width: 65ch; }
+.section-head p { margin: 0; color: var(--muted); }
+
+/* Masthead */
+.mast { background: var(--mast); color: #ffffff; padding-block: 64px 72px; overflow: hidden; }
+.mast .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.mark { display: flex; flex-direction: column; gap: 12px; }
+.mark h1 { font-size: clamp(3.2rem, 9vw, 6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: #ffffff; }
+.mark .sub { font-family: var(--display); font-weight: 600; font-size: clamp(1.45rem, 3.2vw, 2.1rem); color: var(--mint); }
+.wave { display: flex; align-items: center; gap: 4px; height: 82px; margin-bottom: 16px; }
+.wave span { width: 6px; border-radius: 3px; border-radius: 2px; background: #ffffff; opacity: 0.5; }
+.wave span.hi { background: var(--mint); opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .wave span { animation: breathe 2.8s ease-in-out infinite; transform-origin: center; }
+  @keyframes breathe { 50% { transform: scaleY(0.6); } }
+}
+.intro { display: flex; flex-direction: column; gap: 28px; }
+.intro p { margin: 0; font-size: 1.12rem; line-height: 1.75; max-width: 54ch; color: #ffffff; }
+.intro p strong { font-weight: 700; color: var(--mint); }
+.facts { display: flex; flex-wrap: wrap; gap: 12px 28px; font-size: 0.9rem; line-height: 1.5; color: rgba(255, 255, 255, 0.92); padding-block: 18px; border-block: 1px solid rgba(255, 255, 255, 0.25); }
+.facts b { color: #ffffff; font-weight: 700; }
+.facts .s27 { flex-basis: 100%; display: flex; flex-direction: column; gap: 4px; margin-top: 6px; padding-left: 16px; border-left: 4px solid var(--mint); }
+.facts .s27-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mint); }
+.facts .s27-text { font-size: 1.3rem; font-weight: 600; line-height: 1.35; color: #ffffff; text-wrap: balance; }
+.facts .s27-text b { color: var(--mint); font-weight: 800; }
+.mast-nav { display: flex; flex-wrap: wrap; gap: 10px; }
+.mast-nav a { text-decoration: none; font-weight: 600; font-size: 0.92rem; padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.45); color: #ffffff; }
+.mast-nav a:hover { background: rgba(255, 255, 255, 0.12); }
+.mast-nav a.primary { background: var(--mint); color: #1d1650; border-color: var(--mint); }
+.mast a:focus-visible { outline-color: var(--mint); }
+
+/* Resource cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 20px 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card .kind { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.card h3 { font-size: 1.28rem; font-weight: 700; }
+.card p { margin: 0; color: var(--muted); font-size: 0.94rem; flex: 1; }
+.icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); }
+.icon svg { width: 20px; height: 20px; }
+.go { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.93rem; text-decoration: none; color: var(--green); margin-top: 4px; }
+.go:hover { text-decoration: underline; text-underline-offset: 3px; }
+.soon { display: inline-flex; align-self: flex-start; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; padding: 4px 9px; border-radius: 6px; background: var(--pending-soft); color: var(--pending); margin-top: 4px; }
+
+/* Archive */
+.archive { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.archive-top { display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.archive-top p { margin: 0; color: var(--muted); font-size: 0.94rem; max-width: 60ch; }
+.btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 0.93rem; padding: 10px 16px; border-radius: 10px; background: var(--brand); color: var(--brand-ink); border: 0; cursor: pointer; font-family: var(--body); }
+.btn:hover { filter: brightness(1.12); }
+.groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.group { padding: 18px 22px 20px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; }
+.group h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.group ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 0.92rem; }
+.group li { display: flex; gap: 8px; }
+.group li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: 0.62em; border-radius: 50%; background: var(--green); }
+
+/* Chronology */
+.timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); display: flex; flex-direction: column; gap: 20px; max-width: 760px; }
+.timeline li { position: relative; padding-left: 24px; display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 4px 18px; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: 0.45em; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--brand); }
+.timeline time { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); padding-top: 0.15em; font-variant-numeric: tabular-nums; }
+.timeline .what { min-width: 0; }
+.timeline .what strong { font-weight: 600; }
+.timeline .what a { color: var(--green); font-weight: 600; text-underline-offset: 3px; }
+
+/* Media */
+.media { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.clip { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; text-decoration: none; min-width: 0; }
+a.clip:hover { border-color: var(--green); }
+.clip .src { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.clip h3 { font-size: 1.08rem; font-weight: 700; }
+.clip p { margin: 0; font-size: 0.9rem; color: var(--muted); }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.panel { border-radius: 14px; padding: 26px 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel.join { background: var(--brand-soft); color: var(--ink); max-width: 720px; }
+.panel.vol { background: var(--green-soft); border: 1px solid var(--line); }
+.panel h3 { font-size: 1.45rem; font-weight: 700; }
+.panel p { margin: 0; max-width: 52ch; }
+.email { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 4px; }
+.email code { font-family: var(--mono); font-size: 0.92rem; background: rgba(255,255,255,0.12); padding: 8px 12px; border-radius: 8px; user-select: all; overflow-wrap: anywhere; }
+.copy { background: #8fe3b6; color: #18143a; }
+.panel.vol .soon { background: var(--surface); }
+.panel.join .soon { margin-top: 0; background: var(--surface); }
+
+/* Reading list */
+.reading { list-style: none; margin: 0; padding: 0; max-width: 820px; border-top: 1px solid var(--line); }
+.reading > li { padding-block: 16px; border-bottom: 1px solid var(--line); }
+.reading .rd { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.reading h3 { font-size: 1.12rem; font-weight: 700; }
+.reading h3 a { text-decoration: none; }
+.reading h3 a:hover { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.reading .meta { font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.04em; color: var(--muted); }
+.reading p { margin: 0; color: var(--muted); font-size: 0.94rem; max-width: 65ch; }
+.reading li.empty { color: var(--muted); font-size: 0.95rem; }
+
+footer { padding-block: 56px 40px; color: var(--muted); font-size: 0.86rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media (max-width: 760px) {
+  .mast .wrap { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .timeline li { grid-template-columns: minmax(0, 1fr); }
+  section { padding-block: 44px 4px; }
+}
+
+/* Editor */
+:root { --warn: #b3261e; --warn-soft: #fbe9e7; --overlay: rgba(20, 18, 40, 0.55); }
+.ed-item { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.ed-item > :first-child { flex: 1; }
+.ed-ctrl { display: flex; flex-wrap: wrap; gap: 6px; }
+.ed-ctrl button, .ed-add, .ed-btn { font-family: var(--body); font-size: 0.82rem; font-weight: 600; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 5px 10px; cursor: pointer; }
+.ed-ctrl button:hover, .ed-btn:hover { border-color: var(--green); }
+.ed-ctrl button.del { color: var(--warn); }
+.ed-ctrl button.del.armed { background: var(--warn); color: #fff; border-color: var(--warn); }
+.ed-ctrl button:disabled { opacity: 0.35; cursor: default; }
+.ed-add { border: 2px dashed var(--line); background: transparent; color: var(--green); padding: 18px; font-size: 0.95rem; border-radius: 14px; min-height: 64px; }
+.ed-add:hover { border-color: var(--green); }
+.timeline .ed-item { gap: 6px; }
+.timeline li.ed-add-row { padding-left: 24px; display: block; }
+.timeline li.ed-add-row::before { display: none; }
+.groups .ed-add { margin: 16px 22px; }
+.ed-sec-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+
+.ed-fab { position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 30; background: var(--brand); color: var(--brand-ink); border: 0; border-radius: 999px; padding: 12px 18px; font-family: var(--body); font-weight: 600; font-size: 0.95rem; cursor: pointer; box-shadow: 0 6px 20px rgba(20, 18, 40, 0.25); }
+.ed-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--surface); border-top: 1px solid var(--line); box-shadow: 0 -6px 20px rgba(20, 18, 40, 0.12); padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px)); }
+.ed-bar .in { max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.ed-bar .status { flex: 1; min-width: 180px; font-size: 0.9rem; color: var(--muted); }
+.ed-bar .status b { color: var(--ink); }
+.ed-bar .save { background: var(--green); color: #fff; border: 0; }
+.ed-bar .save:disabled { opacity: 0.45; cursor: default; }
+body.editing { padding-bottom: 96px; }
+body.editing .mast-nav, body.editing #contactLink { pointer-events: none; opacity: 0.6; }
+
+.ed-note[hidden] { display: none; }
+.ed-note { max-width: 1120px; margin: 12px auto 0; padding: 10px 14px; border-radius: 10px; background: var(--pending-soft); color: var(--ink); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+.ed-modal { position: fixed; inset: 0; z-index: 40; background: var(--overlay); display: grid; place-items: center; padding: 16px; }
+.ed-form { background: var(--surface); color: var(--ink); border-radius: 16px; width: min(560px, 100%); max-height: calc(100% - 32px); overflow: auto; padding: 24px; display: flex; flex-direction: column; gap: 14px; border: 1px solid var(--line); }
+.ed-form h3 { font-size: 1.3rem; }
+.ed-form label { display: flex; flex-direction: column; gap: 5px; font-size: 0.86rem; font-weight: 600; }
+.ed-form input, .ed-form textarea, .ed-form select { font: 400 0.95rem/1.45 var(--body); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; width: 100%; }
+.ed-form textarea { min-height: 84px; resize: vertical; }
+.ed-form input:focus, .ed-form textarea:focus, .ed-form select:focus { outline: 2px solid var(--green); outline-offset: 0; }
+.ed-form .hint { font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+.ed-form .err { color: var(--warn); font-size: 0.85rem; min-height: 1.2em; margin: 0; }
+.ed-form .acts { display: flex; justify-content: flex-end; gap: 10px; }
+.ed-form .acts .ok { background: var(--brand); color: var(--brand-ink); border: 0; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(90px + env(safe-area-inset-bottom, 0px)); z-index: 50; background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: 0.9rem; max-width: calc(100% - 32px); }
+
+/* Centred masthead */
+.mast .wrap { grid-template-columns: minmax(0,1fr) !important; justify-items: center; gap: 48px; text-align: center; }
+.mark { align-items: center; }
+.wave { justify-content: center; }
+.intro { max-width: 760px; align-items: center; }
+.intro .facts { justify-content: center; }
+.intro .s27 { border-left: 0 !important; padding-left: 0 !important; text-align: center; margin-inline: auto; }
+.mast-nav { justify-content: center; }
+/* Purple outline on Resources Hub cards */
+.cards .card, .cards .card:hover { border: 2px solid var(--mast) !important; }
+/* Light purple backgrounds for item lists */
+.card, .clip, .archive { background: #e6e1f7 !important; }
+.card .icon { background: #ffffff; }
+</style>
+<div id="cv-root">
+<header class="mast">
+  <div class="wrap">
+    <div class="mark">
+      <div class="wave" id="wave" aria-hidden="true"></div>
+      <h1>Collective<br>Voices</h1>
+      <div class="sub">for Health Access</div>
+    </div>
+    <div class="intro">
+      <p id="intro"></p>
+      <div class="facts">
+        <span>Formed <b>Aug 2022</b></span>
+        <span><b>60+</b> organisations &amp; individuals</span>
+        <span class="s27"><span class="s27-label">Section 27 of the Constitution</span><span class="s27-text"><b>Everyone</b> has the right to have access to health care services.</span></span>
+      </div>
+      <nav class="mast-nav" aria-label="Page sections">
+        <a class="primary" href="#resources">Resources</a>
+        <a href="#archive">Full archive</a>
+        <a href="#timeline">Our work</a>
+        <a href="#media">In the media</a>
+        <a href="#reading">Reading</a>
+        <a href="#partners">Partners</a>
+        <a href="#contact">Get involved</a>
+      </nav>
+    </div>
+  </div>
+</header>
+<div class="wrap"><div class="ed-note" id="ed-restore" hidden></div></div>
+
+<main>
+  <section id="resources">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Resources hub</span>
+        <h2>Resources &amp; publications</h2>
+        <p>Guides, evidence and campaign materials, free to read, download and share.</p>
+      </div>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <section id="archive">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Public archive</span>
+        <h2>Everything we have produced</h2>
+        <p>Statements, letters, submissions, court papers and print materials since 2022, kept in one public folder.</p>
+      </div>
+      <div class="archive">
+        <div class="archive-top">
+          <p>The archive is a public Google Drive folder. Anyone with the link can view and download.</p>
+          <a class="btn" id="archiveLink" href="#" target="_blank" rel="noopener">Open the archive ↗</a>
+        </div>
+        <div class="groups" id="groups"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Our work</span>
+        <h2>Key moments</h2>
+        <p>How the coalition has responded since it formed.</p>
+      </div>
+      <ol class="timeline" id="tl"></ol>
+    </div>
+  </section>
+
+  <section id="media">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">In the media</span>
+        <h2>Collective Voices in the media</h2>
+        <p>Op-eds, open letters and coverage of our work.</p>
+      </div>
+      <div class="media" id="clips"></div>
+    </div>
+  </section>
+
+  <section id="reading">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Useful reading</span>
+        <h2>Books and articles we recommend</h2>
+        <p>Further reading on migration, health rights and xenophobia that coalition members have found useful.</p>
+      </div>
+      <ul class="reading" id="reading-list"></ul>
+    </div>
+  </section>
+
+  <section id="partners">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Partners &amp; allies</span>
+        <h2>Organisations we work with</h2>
+        <p>Coalition members and allies working for health access and against xenophobia.</p>
+      </div>
+      <div class="media" id="orgs"></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Get involved</span>
+        <h2>Get in touch</h2>
+      </div>
+      <div class="contact">
+        <div class="panel join">
+          <h3>Join us or ask a question</h3>
+          <p>To join our WhatsApp group or mailing list, or to ask us anything, send us a message through our contact form.</p>
+          <div class="email" id="contactLink"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Collective Voices for Health Access · formerly Collective Voices against Health Xenophobia</span>
+    <span>Health care for everyone who lives in South Africa</span>
+  </div>
+</footer>
+<div id="ed-chrome"></div>
+</div>
+<script type="application/json" id="cv-data">{
+ "settings": {
+  "intro": "Collective Voices for Health Access is a coalition of civil society organisations, activists, healthcare workers and researchers advocating for the right to health for all in South Africa, including migrants and refugees, and campaigning against health xenophobia and discrimination.",
+  "contact": "",
+  "archive": "https://drive.google.com/drive/folders/1S6J6kpvwBTIyRxxZR17WD5JKD3j1Fgjb"
+ },
+ "resources": [
+  {
+   "kind": "Booklet",
+   "title": "Your Right to Health Care",
+   "icon": "book",
+   "text": "Plain-language booklet on access to health care in South Africa, launched December 2025 with the civil society consensus statement.",
+   "cta": "Open booklet",
+   "url": "https://drive.google.com/file/d/15Any4hFUVPU9e9cxqpUNOZGfUPfOCQGP/view?usp=drive_link"
+  },
+  {
+   "kind": "Fact sheet",
+   "title": "Fast Facts",
+   "icon": "doc",
+   "text": "Key facts and quick reference on migration, the health system and the right to health care.",
+   "cta": "View fact sheet",
+   "url": "https://drive.google.com/file/d/1PXJx2Xo5QdnpHZv4ZAyQCMTUa0bCe1Iz/view?usp=drive_link"
+  },
+  {
+   "kind": "Research report",
+   "title": "Audit of Health Xenophobia",
+   "icon": "chart",
+   "text": "Commissioned research on civil society responses to health xenophobia in the South African public health system, 2000–2022.",
+   "cta": "Read report",
+   "url": "https://drive.google.com/file/d/1Q8Gliesd_XOJzL5kB2ETmbHBGjUd4O4d/view?usp=drive_link"
+  },
+  {
+   "kind": "For schools",
+   "title": "Classroom Guide",
+   "icon": "cap",
+   "text": "Educational guide on migration myths and the right to health, for learners, teachers and health rights advocates.",
+   "cta": "View guide",
+   "url": "https://drive.google.com/file/d/1VAJ9du3bbM7nDcCZqVE2zWr8Yym-c3n0/view?usp=drive_link"
+  },
+  {
+   "kind": "Synthesis",
+   "title": "White Paper Synthesis",
+   "icon": "nodes",
+   "text": "A synthesis of the White Paper on Citizenship, Immigration and Refugee Protection.",
+   "cta": "Read synthesis",
+   "url": "https://drive.google.com/file/d/1Bxm8DJHjr2jRs4lc6XHt8xMtepI0ieOY/view?usp=drive_link"
+  }
+ ],
+ "groups": [
+  {
+   "title": "Statements & letters",
+   "items": [
+    "Jeppe Clinic press statement (Jan 2023)",
+    "Open letter to the Minister of Health (Mar 2023)",
+    "Maternal and child health care statement (Jul 2023)",
+    "Correspondence with the Minister (2025)"
+   ]
+  },
+  {
+   "title": "Court cases",
+   "items": [
+    "SECTION27 case papers (2023)",
+    "KAAX, TAC & SECTION27 case",
+    "KAAX judgment, November 2025",
+    "Supplementary affidavit (Oct 2025)"
+   ]
+  },
+  {
+   "title": "Policy submissions",
+   "items": [
+    "White Paper on Citizenship, Immigration and Refugee Protection",
+    "Immigration White Paper submission (Feb 2026)",
+    "Joint submission to the UN Special Rapporteurs (Jul 2025)",
+    "Digital Public Infrastructure"
+   ]
+  },
+  {
+   "title": "Campaign materials",
+   "items": [
+    "Print-ready advocacy materials (Oct 2026)",
+    "Poster-ready materials",
+    "Coalition flyer",
+    "WhatsApp guidelines"
+   ]
+  },
+  {
+   "title": "Research & convenings",
+   "items": [
+    "2023 research report launch",
+    "Convening report (Apr 2023)",
+    "Coalition archive 2022–2023",
+    "Presentations and slide decks"
+   ]
+  },
+  {
+   "title": "Education",
+   "items": [
+    "Right to Education (schools)",
+    "Health booklet, December 2025",
+    "School of Public Health lecture on health xenophobia"
+   ]
+  }
+ ],
+ "timeline": [
+  {
+   "date": "Oct 2026",
+   "head": "Print-ready advocacy materials",
+   "text": "released.",
+   "url": "https://drive.google.com/drive/folders/1S6J6kpvwBTIyRxxZR17WD5JKD3j1Fgjb",
+   "link": "Archive"
+  },
+  {
+   "date": "Aug 2026",
+   "head": "Learners' Guide published",
+   "text": "on migration myths and the right to health, for use in schools.",
+   "url": "https://drive.google.com/file/d/1VAJ9du3bbM7nDcCZqVE2zWr8Yym-c3n0/view?usp=drive_link",
+   "link": "Guide"
+  },
+  {
+   "date": "Jun 2026",
+   "head": "Fast Facts published",
+   "text": "on migrants in South Africa.",
+   "url": "https://drive.google.com/file/d/1PXJx2Xo5QdnpHZv4ZAyQCMTUa0bCe1Iz/view?usp=drive_link",
+   "link": "Fact sheet"
+  },
+  {
+   "date": "Feb 2026",
+   "head": "Submission",
+   "text": "on the White Paper on Citizenship, Immigration and Refugee Protection.",
+   "url": "https://drive.google.com/file/d/1Bxm8DJHjr2jRs4lc6XHt8xMtepI0ieOY/view?usp=drive_link",
+   "link": "Synthesis"
+  },
+  {
+   "date": "9 Dec 2025",
+   "head": "Consensus statement",
+   "text": "on Access to Healthcare for All and launch of the Your Right to Health Care booklet.",
+   "url": "https://drive.google.com/file/d/15Any4hFUVPU9e9cxqpUNOZGfUPfOCQGP/view?usp=drive_link",
+   "link": "Booklet"
+  },
+  {
+   "date": "Nov 2025",
+   "head": "High Court judgment",
+   "text": "in the KAAX case rules clinic blockades unlawful.",
+   "url": "https://kaax.org.za/kopanang-africa-against-xenophobia-high-court-victory/",
+   "link": "Read"
+  },
+  {
+   "date": "17 Oct 2023",
+   "head": "Research report launch",
+   "text": "on responses to health xenophobia, 2000–2022.",
+   "url": "https://drive.google.com/file/d/1Q8Gliesd_XOJzL5kB2ETmbHBGjUd4O4d/view?usp=drive_link",
+   "link": "Report"
+  },
+  {
+   "date": "4 Jul 2023",
+   "head": "Statement",
+   "text": "on Gauteng facilities defying the law and a court order on free health care for pregnant women and young children.",
+   "url": "",
+   "link": ""
+  },
+  {
+   "date": "Apr 2023",
+   "head": "Convening at Wits University",
+   "text": "and coalition declaration. The coalition becomes Collective Voices for Health Access.",
+   "url": "https://healthjusticeinitiative.org.za/wp-content/uploads/2023/09/Declaration-as-at-May-2023.pdf",
+   "link": "Declaration"
+  },
+  {
+   "date": "6 Mar 2023",
+   "head": "Open letter",
+   "text": "to the Minister of Health on countering health xenophobia.",
+   "url": "https://www.dailymaverick.co.za/article/2023-03-06-health-xenophobia-an-urgent-appeal-to-the-health-minister/",
+   "link": "Read"
+  },
+  {
+   "date": "20 Jan 2023",
+   "head": "Statement",
+   "text": "condemning Operation Dudula's attack on patients at Jeppe Clinic, Johannesburg.",
+   "url": "https://healthjusticeinitiative.org.za/wp-content/uploads/2023/09/Doc-B_Collective-Voices-Presser_final-20-Jan-2023.pdf",
+   "link": "Read"
+  },
+  {
+   "date": "Aug 2022",
+   "head": "Coalition forms",
+   "text": "as Collective Voices against Health Xenophobia.",
+   "url": "",
+   "link": ""
+  }
+ ],
+ "orgs": [
+  {
+   "name": "Kopanang Africa Against Xenophobia (KAAX)",
+   "text": "Network working against xenophobia in South Africa. Its website hosts a guide to accessing health care.",
+   "url": "https://kaax.org.za/"
+  },
+  {
+   "name": "Health Justice Initiative",
+   "text": "Co-founder of Collective Voices and a member of its steering committee.",
+   "url": "https://healthjusticeinitiative.org.za/"
+  },
+  {
+   "name": "SECTION27",
+   "text": "Public interest law centre working on the right of access to health care.",
+   "url": "https://section27.org.za/"
+  },
+  {
+   "name": "Scalabrini Centre of Cape Town",
+   "text": "Supports migrants, refugees and South Africans through advocacy, legal advice and welfare and development programmes.",
+   "url": "https://www.scalabrini.org.za/"
+  },
+  {
+   "name": "Médecins Sans Frontières (MSF) Southern Africa",
+   "text": "International, independent medical humanitarian organisation.",
+   "url": "https://www.msf.org.za/"
+  }
+ ],
+ "reading": [],
+ "media": [
+  {
+   "src": "Daily Maverick · Op-ed · Aug 2026",
+   "title": "A not-so-odd couple: AfriForum and March and March's dangerous alliance",
+   "text": "By Rebecca Walker, Iriann Freemantle and Sharon Ekambaram.",
+   "url": "https://www.dailymaverick.co.za/article/2026-08-25-a-not-so-odd-couple-afriforum-and-march-and-march-s-dangerous-alliance/"
+  },
+  {
+   "src": "News24 · Op-ed · Jul 2026",
+   "title": "This is what 'human rights focused' looks like",
+   "text": "Opinion piece from coalition members.",
+   "url": "https://www.news24.com/opinions/columnists/opinion-this-is-what-human-rights-focused-looks-like-20260715-0846"
+  },
+  {
+   "src": "Daily Maverick · Op-ed · Jul 2026",
+   "title": "The state counts buses filled, healthcare workers count the cost to migrants' rights, health and dignity",
+   "text": "Healthcare workers on the human and health cost of the 2026 deportation operation.",
+   "url": "https://www.dailymaverick.co.za/article/2026-07-15-the-state-counts-buses-filled-healthcare-workers-count-the-cost-to-migrants-rights-health-and-dignity/"
+  },
+  {
+   "src": "AllAfrica · Dec 2025",
+   "title": "NGOs take up the cudgel for equal access to health for everyone living in SA",
+   "text": "Coverage of the consensus statement and booklet launch.",
+   "url": "https://allafrica.com/stories/202512150305.html"
+  },
+  {
+   "src": "City Press · Op-ed · Sep 2025",
+   "title": "From dompas to Dudula: how anti-migrant groups keep apartheid alive",
+   "text": "Tracing the line from apartheid pass laws to today's anti-migrant vigilantism.",
+   "url": "https://www.news24.com/citypress/voices/opinion-from-dompas-to-dudula-how-anti-migrant-groups-keep-apartheid-alive-20250920-0861"
+  },
+  {
+   "src": "Daily Maverick · Mar 2023",
+   "title": "Health xenophobia: an urgent appeal to the health minister",
+   "text": "The coalition's open letter to the Minister of Health.",
+   "url": "https://www.dailymaverick.co.za/article/2023-03-06-health-xenophobia-an-urgent-appeal-to-the-health-minister/"
+  },
+  {
+   "src": "Health Justice Initiative",
+   "title": "Collective Voices statements and resources",
+   "text": "HJI's page on the coalition, a co-founder and steering committee member.",
+   "url": "https://healthjusticeinitiative.org.za/?p=5397"
+  },
+  {
+   "src": "Radio",
+   "title": "Radio interviews",
+   "text": "Recordings of coalition members on air.",
+   "url": ""
+  }
+ ]
+}</script>
+<script id="cv-app">(function () {
+"use strict";
+
+/* ---------- Page source pieces (used to republish the page when editors save) ---------- */
+const SKELETON_OPEN = '<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>';
+const HEAD = '<title>Collective Voices for Health Access</title>\n' +
+  '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
+  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">\n';
+
+const loaded = JSON.parse(document.getElementById("cv-data").textContent);
+if (!Array.isArray(loaded.orgs)) loaded.orgs = [];
+if (!Array.isArray(loaded.reading)) loaded.reading = [];
+const clone = o => JSON.parse(JSON.stringify(o));
+let state = clone(loaded);
+let editing = false;
+let canWrite = false;
+let saving = false;
+
+/* ---------- Helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : "";
+const soon = '<span class="soon">Link coming soon</span>';
+const ICONS = {
+  book: '<path d="M4 5a2 2 0 0 1 2-2h5v17H6a2 2 0 0 0-2 2V5Zm16 0a2 2 0 0 0-2-2h-5v17h5a2 2 0 0 1 2 2V5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+  doc: '<path d="M6 2h8l5 5v15H6z M14 2v5h5 M9 12h7 M9 16h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+  chart: '<path d="M4 20V10 M10 20V4 M16 20v-7 M21 20H3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+  cap: '<path d="M2 9l10-5 10 5-10 5z M6 11v5c3 2.5 9 2.5 12 0v-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+  nodes: '<circle cx="12" cy="12" r="2.5" fill="currentColor"/><circle cx="4.5" cy="6" r="2" fill="currentColor"/><circle cx="19.5" cy="6" r="2" fill="currentColor"/><circle cx="4.5" cy="18" r="2" fill="currentColor"/><circle cx="19.5" cy="18" r="2" fill="currentColor"/><path d="M6 7l4 3.5M18 7l-4 3.5M6 17l4-3.5M18 17l-4-3.5" stroke="currentColor" stroke-width="1.6"/>',
+  play: '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1 M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
+};
+const ICON_NAMES = { book: "Booklet", doc: "Document", chart: "Report / chart", cap: "Education", nodes: "Network", play: "Video / audio", link: "Link" };
+
+/* Field definitions for each editable list */
+const SCHEMA = {
+  resources: { noun: "resource", add: "end", fields: [
+    ["title", "Title"], ["kind", "Label above the title", "", "For example: Booklet, Fact sheet, Report"],
+    ["text", "Short description", "textarea"], ["url", "Link", "url"],
+    ["cta", "Link text", "", "For example: Open booklet"], ["icon", "Icon", "icon"] ] },
+  groups: { noun: "archive category", add: "end", fields: [
+    ["title", "Category name"], ["items", "What's in it", "lines", "One item per line"] ] },
+  timeline: { noun: "key moment", add: "start", fields: [
+    ["date", "Date", "", "For example: 9 Dec 2025"], ["head", "What happened", "", "Shown in bold"],
+    ["text", "More detail", "textarea"], ["url", "Link (optional)", "url"], ["link", "Link text", "", "For example: Read"] ] },
+  orgs: { noun: "organisation", add: "end", fields: [
+    ["name", "Organisation name"], ["text", "What they do", "textarea"], ["url", "Website", "url"] ] },
+  reading: { noun: "reading", add: "end", fields: [
+    ["title", "Title"], ["author", "Author(s)"], ["type", "Type", "", "For example: Book, Article, Report"],
+    ["year", "Year"], ["note", "Why it's useful (optional)", "textarea"], ["url", "Link (optional)", "url"] ] },
+  media: { noun: "media item", add: "start", fields: [
+    ["title", "Headline"], ["src", "Outlet and date", "", "For example: Daily Maverick · Op-ed · Aug 2026"],
+    ["text", "One-line description", "textarea"], ["url", "Link", "url"] ] }
+};
+const SETTINGS_FIELDS = [
+  ["intro", "Introduction", "textarea"], ["contact", "Contact form link", "url", "For example a Google Form. Leave empty to show “Contact form coming soon”"],
+  ["archive", "Public archive folder link", "url"]
+];
+
+/* ---------- Rendering ---------- */
+function controls(list, i, len) {
+  return `<div class="ed-ctrl">
+    <button type="button" data-act="up" data-list="${list}" data-i="${i}" ${i === 0 ? "disabled" : ""} aria-label="Move up">↑</button>
+    <button type="button" data-act="down" data-list="${list}" data-i="${i}" ${i === len - 1 ? "disabled" : ""} aria-label="Move down">↓</button>
+    <button type="button" data-act="edit" data-list="${list}" data-i="${i}">Edit</button>
+    <button type="button" class="del" data-act="del" data-list="${list}" data-i="${i}">Delete</button>
+  </div>`;
+}
+const wrapEd = (html, list, i, len) => editing ? `<div class="ed-item">${html}${controls(list, i, len)}</div>` : html;
+const addBtn = list => editing ? `<button type="button" class="ed-add" data-act="add" data-list="${list}">+ Add ${SCHEMA[list].noun}</button>` : "";
+
+function renderResources() {
+  const L = state.resources;
+  $("cards").innerHTML = L.map((r, i) => wrapEd(`
+    <article class="card">
+      <div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[r.icon] || ICONS.doc}</svg></div>
+      <span class="kind">${esc(r.kind)}</span>
+      <h3>${esc(r.title)}</h3>
+      <p>${esc(r.text)}</p>
+      ${safeUrl(r.url) ? `<a class="go" href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.cta || "Open")} →</a>` : soon}
+    </article>`, "resources", i, L.length)).join("") + addBtn("resources");
+}
+function renderGroups() {
+  const L = state.groups;
+  $("groups").innerHTML = L.map((g, i) => `<div class="group">${wrapEd(`<div><h3>${esc(g.title)}</h3><ul>${(g.items || []).map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>`, "groups", i, L.length)}</div>`).join("") + addBtn("groups");
+  const a = $("archiveLink"), url = safeUrl(state.settings.archive);
+  a.hidden = !url; if (url) a.href = url;
+}
+function renderTimeline() {
+  const L = state.timeline;
+  $("tl").innerHTML = L.map((t, i) => `<li><time>${esc(t.date)}</time>${wrapEd(`<div class="what"><strong>${esc(t.head)}</strong> ${esc(t.text)}${safeUrl(t.url) ? ` <a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.link || "Open")} ↗</a>` : ""}</div>`, "timeline", i, L.length)}</li>`).join("") +
+    "";
+  if (editing) $("tl").insertAdjacentHTML("afterbegin", `<li class="ed-add-row">${addBtn("timeline")}</li>`);
+}
+function renderMedia() {
+  const L = state.media;
+  $("clips").innerHTML = addBtn("media") + L.map((c, i) => {
+    const inner = `<span class="src">${esc(c.src)}</span><h3>${esc(c.title)}${safeUrl(c.url) ? " ↗" : ""}</h3><p>${esc(c.text)}</p>`;
+    const card = safeUrl(c.url) && !editing
+      ? `<a class="clip" href="${esc(c.url)}" target="_blank" rel="noopener">${inner}</a>`
+      : `<div class="clip">${inner}${safeUrl(c.url) ? "" : soon}</div>`;
+    return wrapEd(card, "media", i, L.length);
+  }).join("");
+}
+function renderOrgs() {
+  const L = state.orgs;
+  $("orgs").innerHTML = L.map((o, i) => {
+    const inner = `<span class="src">${safeUrl(o.url) ? esc(o.url.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "")) : "Website"}</span><h3>${esc(o.name)}${safeUrl(o.url) ? " ↗" : ""}</h3><p>${esc(o.text)}</p>`;
+    const card = safeUrl(o.url) && !editing
+      ? `<a class="clip" href="${esc(o.url)}" target="_blank" rel="noopener">${inner}</a>`
+      : `<div class="clip">${inner}${safeUrl(o.url) ? "" : soon}</div>`;
+    return wrapEd(card, "orgs", i, L.length);
+  }).join("") + addBtn("orgs");
+}
+function renderReading() {
+  const L = state.reading;
+  const rows = L.map((r, i) => {
+    const meta = [r.author, r.year, r.type].filter(Boolean).map(esc).join(" · ");
+    const title = safeUrl(r.url) && !editing ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)} ↗</a>` : esc(r.title);
+    return `<li>${wrapEd(`<div class="rd"><h3>${title}</h3>${meta ? `<span class="meta">${meta}</span>` : ""}${r.note ? `<p>${esc(r.note)}</p>` : ""}</div>`, "reading", i, L.length)}</li>`;
+  }).join("");
+  $("reading-list").innerHTML = (rows || (editing ? "" : `<li class="empty">Our reading list is being put together. Check back soon.</li>`)) +
+    (editing ? `<li class="empty">${addBtn("reading")}</li>` : "");
+}
+function renderSettings() {
+  const s = state.settings;
+  const intro = esc(s.intro).replace(/^Collective Voices for Health Access/, "<strong>Collective Voices for Health Access</strong>");
+  $("intro").innerHTML = intro;
+  const c = safeUrl(s.contact);
+  $("contactLink").innerHTML = c ? `<a class="btn" href="${esc(c)}" target="_blank" rel="noopener">Send us a message ↗</a>` : '<span class="soon">Contact form coming soon</span>';
+}
+function render() {
+  renderSettings(); renderResources(); renderGroups(); renderTimeline(); renderMedia(); renderReading(); renderOrgs();
+  document.body.classList.toggle("editing", editing);
+  renderEditChrome();
+}
+
+/* ---------- Edit chrome ---------- */
+const dirty = () => JSON.stringify(state) !== JSON.stringify(loaded);
+function countChanges() {
+  let n = 0;
+  for (const k of ["resources", "groups", "timeline", "media", "orgs", "reading"]) {
+    const A = loaded[k].map(x => JSON.stringify(x)), B = state[k].map(x => JSON.stringify(x));
+    const added = B.filter(x => !A.includes(x)).length, removed = A.filter(x => !B.includes(x)).length;
+    n += Math.max(added, removed);
+  }
+  for (const f of SETTINGS_FIELDS) if (loaded.settings[f[0]] !== state.settings[f[0]]) n++;
+  return n || (dirty() ? 1 : 0);
+}
+function renderEditChrome() {
+  const root = $("ed-chrome");
+  if (!canWrite) { root.innerHTML = ""; return; }
+  if (!editing) {
+    root.innerHTML = `<button type="button" class="ed-fab" data-act="start">Edit page</button>`;
+    return;
+  }
+  const n = countChanges();
+  root.innerHTML = `<div class="ed-bar" role="region" aria-label="Editing"><div class="in">
+    <div class="status">${saving ? "<b>Saving…</b>" : n ? `<b>${n} unsaved change${n === 1 ? "" : "s"}</b>. Save to publish them for everyone.` : "<b>Editing.</b> Add, change, reorder or delete items, then save."}</div>
+    <button type="button" class="ed-btn" data-act="settings">Contact &amp; links</button>
+    <button type="button" class="ed-btn" data-act="cancel">${n ? "Discard changes" : "Done"}</button>
+    <button type="button" class="ed-btn save" data-act="save" ${n && !saving ? "" : "disabled"}>Save &amp; publish</button>
+  </div></div>`;
+}
+function toast(msg) {
+  const t = document.createElement("div");
+  t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3200);
+}
+
+/* Draft kept in this browser so edits survive a reload until saved */
+const DRAFT_KEY = "cv-hub-draft";
+function stashDraft() { try { if (dirty()) sessionStorage.setItem(DRAFT_KEY, JSON.stringify(state)); else sessionStorage.removeItem(DRAFT_KEY); } catch (e) {} }
+function readDraft() { try { const d = sessionStorage.getItem(DRAFT_KEY); return d ? JSON.parse(d) : null; } catch (e) { return null; } }
+function clearDraft() { try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {} }
+function changed() { stashDraft(); render(); }
+
+/* ---------- Modal form ---------- */
+let modalReturn = null;
+function openForm(title, fields, values, onSave) {
+  modalReturn = document.activeElement;
+  const m = document.createElement("div");
+  m.className = "ed-modal"; m.id = "ed-modal";
+  m.innerHTML = `<form class="ed-form" novalidate role="dialog" aria-modal="true" aria-labelledby="ed-title">
+    <h3 id="ed-title">${esc(title)}</h3>
+    ${fields.map(([key, label, type, hint]) => {
+      const id = "f-" + key, v = values[key];
+      let ctl;
+      if (type === "textarea") ctl = `<textarea id="${id}" name="${key}">${esc(v)}</textarea>`;
+      else if (type === "lines") ctl = `<textarea id="${id}" name="${key}" rows="6">${esc((v || []).join("\n"))}</textarea>`;
+      else if (type === "icon") ctl = `<select id="${id}" name="${key}">${Object.keys(ICON_NAMES).map(k => `<option value="${k}" ${k === v ? "selected" : ""}>${ICON_NAMES[k]}</option>`).join("")}</select>`;
+      else ctl = `<input id="${id}" name="${key}" type="${type === "url" ? "url" : "text"}" value="${esc(v)}" ${type === "url" ? 'placeholder="https://…" inputmode="url"' : ""}>`;
+      return `<label for="${id}">${esc(label)}${hint ? ` <span class="hint">${esc(hint)}</span>` : ""}${ctl}</label>`;
+    }).join("")}
+    <p class="err" id="ed-err" role="alert"></p>
+    <div class="acts"><button type="button" class="ed-btn" data-close>Cancel</button><button type="submit" class="ed-btn ok">Done</button></div>
+  </form>`;
+  document.body.appendChild(m);
+  const form = m.querySelector("form");
+  const close = () => { m.remove(); if (modalReturn && modalReturn.focus) modalReturn.focus(); };
+  m.addEventListener("click", e => { if (e.target === m || e.target.hasAttribute("data-close")) close(); });
+  m.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const out = {};
+    for (const [key, , type] of fields) {
+      const raw = form.elements[key].value;
+      out[key] = type === "lines" ? raw.split("\n").map(s => s.trim()).filter(Boolean) : raw.trim();
+      if (type === "url" && out[key] && !safeUrl(out[key])) {
+        $("ed-err").textContent = "Links must start with https:// (copy the full address from your browser).";
+        form.elements[key].focus(); return;
+      }
+    }
+    const first = fields[0][0];
+    if (fields !== SETTINGS_FIELDS && !out[first]) { $("ed-err").textContent = "Add a " + fields[0][1].toLowerCase() + " first."; form.elements[first].focus(); return; }
+    onSave(out); close();
+  });
+  const f = form.querySelector("input, textarea, select"); if (f) f.focus();
+}
+
+/* ---------- Actions ---------- */
+let armed = null;
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]");
+  if (!b) return;
+  const act = b.dataset.act, list = b.dataset.list, i = +b.dataset.i;
+  if (act !== "del" && armed) { armed = null; }
+  if (act === "start") { editing = true; render(); return; }
+  if (act === "cancel") {
+    if (dirty() && b.dataset.confirm !== "1") { b.dataset.confirm = "1"; b.textContent = "Click again to discard"; return; }
+    state = clone(loaded); clearDraft(); editing = false; render(); return;
+  }
+  if (act === "settings") {
+    openForm("Contact & links", SETTINGS_FIELDS, state.settings, out => { Object.assign(state.settings, out); changed(); });
+    return;
+  }
+  if (act === "save") { save(); return; }
+  if (!SCHEMA[list]) return;
+  const L = state[list], S = SCHEMA[list];
+  if (act === "up" && i > 0) { [L[i - 1], L[i]] = [L[i], L[i - 1]]; changed(); }
+  else if (act === "down" && i < L.length - 1) { [L[i + 1], L[i]] = [L[i], L[i + 1]]; changed(); }
+  else if (act === "edit") openForm("Edit " + S.noun, S.fields, L[i], out => { L[i] = Object.assign({}, L[i], out); changed(); });
+  else if (act === "add") {
+    const blank = {}; S.fields.forEach(([k, , t]) => blank[k] = t === "lines" ? [] : t === "icon" ? "doc" : "");
+    openForm("Add " + S.noun, S.fields, blank, out => { S.add === "start" ? L.unshift(out) : L.push(out); changed(); toast("Added. Save & publish when you're done."); });
+  }
+  else if (act === "del") {
+    const key = list + ":" + i;
+    if (armed !== key) { armed = key; b.classList.add("armed"); b.textContent = "Confirm delete"; return; }
+    armed = null; L.splice(i, 1); changed();
+  }
+});
+
+/* ---------- Save: republish the whole page with the new data ---------- */
+function buildPage(data) {
+  const json = JSON.stringify(data, null, 1).replace(/</g, "\\u003c");
+  return SKELETON_OPEN + "\n" + HEAD +
+    '<style id="cv-css">' + $("cv-css").textContent + "</style>\n" +
+    '<div id="cv-root">' + $("cv-root").dataset.shell + "</div>\n" +
+    '<script type="application/json" id="cv-data">' + json + "<\/script>\n" +
+    '<script id="cv-app">' + $("cv-app").textContent + "<\/script>\n</body></html>";
+}
+async function save() {
+  if (saving || !dirty()) return;
+  saving = true; renderEditChrome();
+  stashDraft();
+  try {
+    const artifact = window.claude && await window.claude.use("artifact");
+    if (!artifact) throw { code: "not_granted" };
+    await artifact.publish(buildPage(state));
+    clearDraft();
+    toast("Saved. The page is updating for everyone.");
+  } catch (err) {
+    saving = false;
+    const code = err && err.code;
+    if (code === "conflict") { toast("Someone saved a newer version first. Reloading it now; your edits are kept so you can restore them."); return; }
+    if (code === "not_writer" || code === "not_granted" || code === "not_declared" || code === "capability_disabled" || code === "consent_required" || code === "capability_removed") {
+      canWrite = false; editing = false; state = clone(loaded); render();
+      toast("You can view this page but not edit it. Ask the owner for edit access."); return;
+    }
+    if (code === "rate_limited") { renderEditChrome(); toast("Saving too often. Wait a minute, then save again."); return; }
+    if (code === "too_large") { renderEditChrome(); toast("The page is too large to save. Remove some items and try again."); return; }
+    renderEditChrome(); toast("Couldn't save just now. Your changes are still here, so try Save again in a moment.");
+  }
+}
+
+/* Keep the untouched page markup for republishing */
+document.getElementById("cv-root").dataset.shell = document.getElementById("cv-root").innerHTML;
+
+/* ---------- Waveform motif ---------- */
+const heights = [8,14,22,30,18,40,52,34,24,46,30,16,26,38,20,12,30,44,26,14,10,18,8];
+$("wave").innerHTML = heights.map((h, i) => `<span class="${i % 5 === 2 ? "hi" : ""}" style="height:${Math.round(h * 1.5)}px;animation-delay:${(i * 0.11).toFixed(2)}s"></span>`).join("");
+
+/* ---------- Boot ---------- */
+render();
+
+(async () => {
+  try {
+    const user = window.claude && await window.claude.use("user");
+    const artifact = window.claude && await window.claude.use("artifact");
+    if (!user || !artifact) return;
+    canWrite = await user.canEdit();
+    if (!canWrite) return;
+    const draft = readDraft();
+    if (draft && JSON.stringify(draft) === JSON.stringify(loaded)) clearDraft();
+    else if (draft) {
+      const n = $("ed-restore");
+      n.hidden = false;
+      n.innerHTML = `<span>You have unsaved edits from earlier in this browser.</span><button type="button" class="ed-btn" id="ed-restore-yes">Restore them</button><button type="button" class="ed-btn" id="ed-restore-no">Discard</button>`;
+      $("ed-restore-yes").onclick = () => { state = draft; editing = true; n.hidden = true; render(); };
+      $("ed-restore-no").onclick = () => { clearDraft(); n.hidden = true; };
+    }
+    renderEditChrome();
+  } catch (e) { /* view-only */ }
+})();
+})();
+</script>
+
+</body></html>
